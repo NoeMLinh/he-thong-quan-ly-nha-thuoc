@@ -1,0 +1,164 @@
+#include<iostream>
+
+using namespace std;
+
+class shopping
+{
+	private:
+		float price;
+
+
+		public:
+			void menu();
+			void administrator();
+			void buyer();
+			void add();
+			void edit();
+			void rem();
+			void receipt();
+
+
+};
+
+void shopping :: menu()
+{
+	m:
+	int choice;
+	string taikhoan;
+	string mat_khau;
+
+	cout<<"\t\t\t\t|_______________________________________|\n";
+	cout<<"\t\t\t\t|                                       |\n";
+	cout<<"\t\t\t\t|        Drugstore Main Menu            |\n";
+	cout<<"\t\t\t\t|                                       |\n";
+	cout<<"\t\t\t\t|_______________________________________|\n";
+	cout<<"\t\t\t\t                                        |\n";
+	cout<<"\t\t\t\t|  1) Administrator   |\n";
+	cout<<"\t\t\t\t|                     |\n";
+	cout<<"\t\t\t\t|  2) Mua_Thuoc       |\n";
+	cout<<"\t\t\t\t|                     |\n";
+	cout<<"\t\t\t\t|  3) Exit            |\n";
+	cout<<"\t\t\t\t|                     |\n";
+	cout<<"\n\t\t\t Please select!";
+	cin>>choice;
+
+	switch(choice)
+	{
+		case 1:
+			cout<<"\t\t\t Please Login \n";
+			cout<<"\t\t\t Nhap Tai Khoan   \n";
+            cin>>taikhoan;
+			cout<<"\t\t\t Mat Khau     \n";
+			cin>>mat_khau;
+
+			if(taikhoan=="minhdepzaivclhaha" && mat_khau=="deptrai69")
+			{
+				administrator();
+			}
+			else
+			{
+				cout<<"Ban khong co quyen truy cap";
+			}
+			break;
+
+
+	case 2:
+		{
+			buyer();
+
+		}
+
+	case 3:
+		{
+			exit(0);
+		}
+
+		default :
+			{
+				cout<< "Vui lòng chọn từ các tùy chọn đã cho";
+
+			}
+
+
+}
+goto m;
+}
+
+void shopping:: administrator()
+{
+	m:
+	int choice;
+	cout<<"\n\n\n\t\t\t Drugstore menu";
+	cout<<"\n\t\t\t|_____1) Them San Pham  _____|";
+	cout<<"\n\t\t\t|                            |";
+	cout<<"\n\t\t\t|_____2) Thay Doi San Pham __|";
+	cout<<"\n\t\t\t|                            |";
+	cout<<"\n\t\t\t|_____3) Xoa San Pham      __|";
+    cout<<"\n\t\t\t|                            |";
+    cout<<"\n\t\t\t|_____4) Back to main menu___|";
+
+    cout<<"\n\n\t Please enter your choice ";
+    cin>>choice;
+
+    switch(choice)
+    {
+    	case 1:
+    		add();
+    		break;
+
+    	case 2:
+    		edit();
+    		break;
+
+    	case 3:
+    		rem();
+    		break;
+
+    	case 4:
+    		menu();
+    		break;
+
+    	default :
+    		cout<<"Lua chon khong hop le!";
+
+	}
+	goto m;
+}
+
+void shopping:: buyer()
+{
+	m:
+	int choice;
+	cout<<"\t\t\t  Buyer \n";
+	cout<<"\t\t\t_____________  \n";
+	cout<<"                     \n";
+	cout<<"\t\t\t1) Mua thuoc   \n";
+	cout<<"                     \n";
+	cout<<"\t\t\t2) Go back     \n";
+	cout<<"\t\t\t Enter your choice : ";
+
+	cin>>choice;
+
+	switch(choice)
+	{
+		case 1:
+			receipt();
+			break;
+
+		case 2:
+			menu();
+
+		default :
+
+			cout<<"invalid choice";
+
+	}
+
+	goto m;
+
+
+}
+
+
+
+
