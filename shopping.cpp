@@ -23,56 +23,56 @@ public:
 };
 
 // Khai báo l?p con
-class SGK : public shopping {
+class THUOC1 : public shopping {
 public:
-    float tinhtienmuasgk() {
+    float tinhtienthuoc1() {
         return soluong * 10000; // S?a d? tính ti?n dúng theo s? lu?ng
     }
 };
 
 // Khai báo l?p con
-class SBT : public shopping {
+class THUOC2 : public shopping {
 private:
-    string loaisach;
+    string loaithuoc;
 public:
     void nhapthongtin() {
         shopping::nhapthongtin();
         while (getchar() != '\n'); // xoá b? nh? d?m
-        cout << "\nNhap loai sach: ";
-        getline(cin, loaisach);
+        cout << "\nNhap loai thuoc: ";
+        getline(cin, loaithuoc);
     }
 
     void xuatthongtin() {
         shopping::xuatthongtin();
-        cout << "\nLoai sach: " << loaisach;
+        cout << "\nLoai thuoc: " << loaithuoc;
     }
 
-    float tinhtienmuasbt() {
-        return soluong * 20000; // Gi? s? giá sách bài t?p là 20000
+    float tinhtienthuoc1() {
+        return soluong * 20000; // Gi? s? giá thuoc 1 là 20000
     }
 };
 
 // Xu?t t?t c? thông tin
-void xuattatcathongtin(SGK ds_sgk[], int n, SBT ds_sbt[], int m) {
+void xuattatcathongtin(THUOC1 ds_thuoc1[], int n, THUOC2 ds_thuoc2[], int m) {
     int dem = 1;
-    cout << "\n\n\n\t\t\tDanh sach mua SGK: \n";
+    cout << "\n\n\n\t\t\tDanh sach mua THUOC1: \n";
     for (int i = 0; i < n; i++) {
-        cout << "\nThong tin mua SGK: " << dem++ << endl;
-        ds_sgk[i].xuatthongtin();
-        cout << "\nTien SGK: " << ds_sgk[i].tinhtienmuasgk();
+        cout << "\nThong tin mua THUOC1: " << dem++ << endl;
+        ds_thuoc1[i].xuatthongtin();
+        cout << "\nTien THUOC1: " << ds_thuoc1[i].tinhtienthuoc1();
     }
 
-    cout << "\n\n\n\t\tDanh sach mua SBT: \n";
+    cout << "\n\n\n\t\tDanh sach mua THUOC2: \n";
     dem = 1;
     for (int i = 0; i < m; i++) {
-        cout << "\nThong tin mua SBT: " << dem++ << endl;
-        ds_sbt[i].xuatthongtin();
-        cout << "\nTien mua SBT: " << ds_sbt[i].tinhtienmuasbt();
+        cout << "\nThong tin mua THUOC2: " << dem++ << endl;
+        ds_thuoc2[i].xuatthongtin();
+        cout << "\nTien mua THUOC2: " << ds_thuoc2[i].tinhtienthuoc2();
     }
 }
 
 // Hàm qu?n lý
-void menu(SGK ds_sgk[], int &n, SBT ds_sbt[], int &m) {
+void menu(THUOC1 ds_thuoc1[], int n, THUOC2 ds_thuoc2[], int m) {
     int choice;
     while (true) {
         cout << "\t\t\t\t|_______________________________________|\n";
@@ -94,30 +94,30 @@ void menu(SGK ds_sgk[], int &n, SBT ds_sbt[], int &m) {
             int chon;
             while (true) {
                 system("cls");
-                cout << "\n1. Sach giao khoa: ";
-                cout << "\n2. Sach bai tap: ";
+                cout << "\n1. thuoc1: ";
+                cout << "\n2. thuoc2: ";
                 cout << "\n3. Out ";
                 cout << "\nBan chon san pham nao: ";
                 cin >> chon;
 
                 if (chon == 1) {
-                    SGK x;
-                    cout << "\n\n\n\t\t\t\tNhap sach: \n";
+                    THUOC1 x;
+                    cout << "\n\n\n\t\t\t\tNhap ten thuoc: \n";
                     x.nhapthongtin();
-                    ds_sgk[n] = x;
+                    ds_thuoc1[n] = x;
                     n++;
                 } else if (chon == 2) {
                     SBT x;
-                    cout << "\n\n\n\t\t\t\tNhap sach: \n";
+                    cout << "\n\n\n\t\t\t\tNhap ten thuoc: \n";
                     x.nhapthongtin();
-                    ds_sbt[m] = x;
+                    ds_thuoc2[m] = x;
                     m++;
                 } else {
                     break;
                 }
             }
         } else if (choice == 2) {
-            xuattatcathongtin(ds_sgk, n, ds_sbt, m);
+            xuattatcathongtin(ds_thuoc1, n, ds_thuoc2, m);
             system("pause");
         } else if (choice == 3) {
             cout << "Het";
@@ -128,10 +128,10 @@ void menu(SGK ds_sgk[], int &n, SBT ds_sbt[], int &m) {
 }
 
 int main() {
-    SGK ds_sgk[100];
+    SGK ds_thuoc1[100];
     int n = 0;
-    SBT ds_sbt[100];
+    SBT ds_thuoc2[100];
     int m = 0;
-    menu(ds_sgk, n, ds_sbt, m);
+    menu(ds_thuoc1, n, ds_thuoc2, m);
     return 0;
 }
