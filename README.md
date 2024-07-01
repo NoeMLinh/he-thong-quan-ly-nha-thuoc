@@ -5,3 +5,6 @@ I) Yêu cầu tối thiểu:
 3. vào ra 
 4. Quan trọng!!! : Github!
 5. Dùng C và C++
+
+
+C R U D:completed
