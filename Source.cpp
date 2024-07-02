@@ -1,140 +1,155 @@
-#include <stdio.h>
-#include <stdlib.h>
+﻿#include <stdio.h>
 #include <string.h>
 
-// Khai b�o c?u tr�c th�ng tin v? thu?c
-struct Thuoc {
-    char ten[100];
-    char hoatChat[100];
-    float gia;
-    int soLuong;
+// Định nghĩa cấu trúc cho một loại thuốc
+struct Drug {
+    int id;
+    char name[100];
+    float price;
+    int quantity;
 };
 
-// H�m in menu ch�nh
-void printMenu() {
-    printf("\n======== MENU ========");
-    printf("\n1. Them thuoc");
-    printf("\n2. Xem va cap nhat thuoc");
-    printf("\n3. Xoa thuoc");
-    printf("\n4. Xem danh sach thuoc");
-    printf("\n5. Ban thuoc");
-    printf("\n6. Xuat file danh sach thuoc");
-    printf("\n7. Tim kiem thuoc");
-    printf("\n8. Thoat");
-    printf("\n======================");
+// Khai báo một mảng để lưu trữ các thuốc
+struct Drug pharmacy[100];
+int drugCount = 0;  // Biến đếm số lượng thuốc hiện có trong danh sách
+
+// Hàm để nhập thông tin cho một loại thuốc mới
+void addDrug() {
+    struct Drug newDrug;
+
+    printf("Nhập mã số thuốc: ");
+    scanf_s("%d", &newDrug.id);
+    printf("Nhập tên thuốc: ");
+    scanf_s(" %[^\n]s", newDrug.name);
+    printf("Nhập giá thuốc: ");
+    scanf_s("%f", &newDrug.price);
+    printf("Nhập số lượng thuốc: ");
+    scanf_s("%d", &newDrug.quantity);
+
+    pharmacy[drugCount++] = newDrug;
+    printf("Đã thêm thuốc vào danh sách.\n");
 }
 
-// H�m th�m thu?c v�o danh s�ch
-void themThuoc(struct Thuoc thuoc[], int *n) {
-    printf("\nNhap ten thuoc: ");
-    getchar(); // �?c k? t? newline c?n l?i sau khi nh?p l?a ch?n tr�?c ��
-    fgets(thuoc[*n].ten, sizeof(thuoc[*n].ten), stdin);
-    thuoc[*n].ten[strcspn(thuoc[*n].ten, "\n")] = 0; // X�a k? t? newline n?u c�
+// Hàm để tìm kiếm thông tin của một loại thuốc bằng tên
+void searchDrugByName(char* name) {
+    int found = 0;
 
-    printf("Nhap hoat chat: ");
-    fgets(thuoc[*n].hoatChat, sizeof(thuoc[*n].hoatChat), stdin);
-    thuoc[*n].hoatChat[strcspn(thuoc[*n].hoatChat, "\n")] = 0;
-
-    printf("Nhap gia: ");
-    scanf("%f", &thuoc[*n].gia);
-
-    printf("Nhap so luong: ");
-    scanf("%d", &thuoc[*n].soLuong);
-
-    (*n)++;
-}
-
-// H�m xem danh s�ch thu?c
-void xemThuoc(struct Thuoc thuoc[], int n) {
-    if (n == 0) {
-        printf("\nDanh sach thuoc rong.");
-    } else {
-        printf("\nDanh sach thuoc:");
-        for (int i = 0; i < n; ++i) {
-            printf("\n%d. Ten: %s", i + 1, thuoc[i].ten);
-            printf("\n   Hoat chat: %s", thuoc[i].hoatChat);
-            printf("\n   Gia: %.2f", thuoc[i].gia);
-            printf("\n   So luong: %d", thuoc[i].soLuong);
+    for (int i = 0; i < drugCount; ++i) {
+        if (strcmp(pharmacy[i].name, name) == 0) {
+            printf("Thông tin thuốc:\n");
+            printf("Mã số: %d\n", pharmacy[i].id);
+            printf("Tên thuốc: %s\n", pharmacy[i].name);
+            printf("Giá thuốc: %.2f\n", pharmacy[i].price);
+            printf("Số lượng: %d\n", pharmacy[i].quantity);
+            found = 1;
+            break;
         }
     }
-}
 
-// H�m c?p nh?t th�ng tin thu?c
-void capNhatThuoc(struct Thuoc thuoc[], int n) {
-    int choice;
-    printf("\nNhap so thu tu thuoc can cap nhat: ");
-    scanf("%d", &choice);
-    if (choice >= 1 && choice <= n) {
-        choice--; // Chuy?n v? index trong m?ng
-        printf("\nNhap ten thuoc moi: ");
-        getchar();
-        fgets(thuoc[choice].ten, sizeof(thuoc[choice].ten), stdin);
-        thuoc[choice].ten[strcspn(thuoc[choice].ten, "\n")] = 0;
-
-        printf("Nhap hoat chat moi: ");
-        fgets(thuoc[choice].hoatChat, sizeof(thuoc[choice].hoatChat), stdin);
-        thuoc[choice].hoatChat[strcspn(thuoc[choice].hoatChat, "\n")] = 0;
-
-        printf("Nhap gia moi: ");
-        scanf("%f", &thuoc[choice].gia);
-
-        printf("Nhap so luong moi: ");
-        scanf("%d", &thuoc[choice].soLuong);
-
-        printf("\nCap nhat thanh cong.");
-    } else {
-        printf("\nKhong tim thay thuoc can cap nhat.");
+    if (!found) {
+        printf("Không tìm thấy thuốc có tên \"%s\".\n", name);
     }
 }
 
-// H�m x�a thu?c kh?i danh s�ch
-void xoaThuoc(struct Thuoc thuoc[], int *n) {
-    int choice;
-    printf("\nNhap so thu tu thuoc can xoa: ");
-    scanf("%d", &choice);
-    if (choice >= 1 && choice <= *n) {
-        for (int i = choice - 1; i < *n - 1; ++i) {
-            thuoc[i] = thuoc[i + 1];
+// Hàm để in ra danh sách các thuốc hiện có
+void printDrugList() {
+    printf("Danh sách thuốc hiện có:\n");
+    for (int i = 0; i < drugCount; ++i) {
+        printf("%d. %s - Giá: %.2f - Số lượng: %d\n",
+            pharmacy[i].id, pharmacy[i].name,
+            pharmacy[i].price, pharmacy[i].quantity);
+    }
+}
+// Hàm để xóa thông tin của một loại thuốc bằng tên
+void deleteDrugByName(char* name) {
+    int found = 0;
+
+    for (int i = 0; i < drugCount; ++i) {
+        if (strcmp(pharmacy[i].name, name) == 0) {
+            // Di chuyển các phần tử phía sau lên trước để xóa phần tử hiện tại
+            for (int j = i; j < drugCount - 1; ++j) {
+                pharmacy[j] = pharmacy[j + 1];
+            }
+            drugCount--;
+            printf("Đã xóa thuốc có tên \"%s\" ra khỏi danh sách.\n", name);
+            found = 1;
+            break;
         }
-        (*n)--;
-        printf("\nXoa thanh cong.");
-    } else {
-        printf("\nKhong tim thay thuoc can xoa.");
+    }
+
+    if (!found) {
+        printf("Không tìm thấy thuốc có tên \"%s\" để xóa.\n", name);
+    }
+}
+// Hàm để sửa thông tin của một loại thuốc bằng tên
+void updateDrugByName(char* name) {
+    int found = 0;
+
+    for (int i = 0; i < drugCount; ++i) {
+        if (strcmp(pharmacy[i].name, name) == 0) {
+            printf("Nhập thông tin mới cho thuốc \"%s\":\n", name);
+            printf("Mã số thuốc: ");
+            scanf_s("%d", &pharmacy[i].id);
+            printf("Giá thuốc: ");
+            scanf_s("%f", &pharmacy[i].price);
+            printf("Số lượng thuốc: ");
+            scanf_s("%d", &pharmacy[i].quantity);
+            printf("Thông tin thuốc đã được cập nhật.\n");
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Không tìm thấy thuốc có tên \"%s\" để cập nhật.\n", name);
     }
 }
 
-// H�m main
+
 int main() {
-    struct Thuoc thuoc[100]; // M?ng ch?a th�ng tin c�c lo?i thu?c
-    int n = 0; // S? l�?ng thu?c hi?n t?i
     int choice;
+    char searchName[100], updateName[100], deleteName[100];
 
     do {
-        printMenu();
-        printf("\nNhap lua chon cua ban: ");
-        scanf("%d", &choice);
+        printf("\nHệ thống quản lí nhà thuốc\n");
+        printf("1. Thêm thuốc\n");
+        printf("2. Tìm kiếm thuốc\n");
+        printf("3. In danh sách thuốc\n");
+        printf("4. Xóa thuốc\n");
+        printf("5. Sửa thuốc\n");
+        printf("0. Thoát\n");
+        printf("Nhập lựa chọn của bạn: ");
+        scanf_s("%d", &choice);
 
         switch (choice) {
-            case 1:
-                themThuoc(thuoc, &n);
-                break;
-            case 2:
-                xemThuoc(thuoc, n);
-                capNhatThuoc(thuoc, n);
-                break;
-            case 3:
-                xoaThuoc(thuoc, &n);
-                break;
-            case 4:
-                xemThuoc(thuoc, n);
-                break;
-            case 8:
-                break;
-            default:
-                printf("\nLua chon khong hop le. Vui long chon lai!\n");
-                break;
+        case 1:
+            addDrug();
+            break;
+        case 2:
+            printf("Nhập tên thuốc cần tìm kiếm: ");
+            scanf_s(" %[^\n]s", searchName);
+            searchDrugByName(searchName);
+            break;
+        case 3:
+            printDrugList();
+            break;
+        case 4:
+            printf("Nhập tên thuốc cần xóa: ");
+            scanf_s(" %[^\n]s", deleteName);
+            deleteDrugByName(deleteName);
+            break;
+        case 5:
+            printf("Nhập tên thuốc cần sửa: ");
+            scanf_s(" %[^\n]s", updateName);
+            updateDrugByName(updateName);
+            break;
+        case 0:
+            printf("Thoát chương trình.\n");
+            break;
+        default:
+            printf("Lựa chọn không hợp lệ. Vui lòng chọn lại.\n");
         }
-    } while (choice != 8);
+    } while (choice != 0);
 
     return 0;
 }
