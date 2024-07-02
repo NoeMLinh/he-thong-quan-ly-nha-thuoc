@@ -1,0 +1,4 @@
+﻿  sourcethuoc.cpp
+C:\Users\admin\source\repos\QuanLyNhaThuoc\sourcethuoc.cpp(315,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\admin\source\repos\QuanLyNhaThuoc\sourcethuoc.cpp(335,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  QuanLyNhaThuoc.vcxproj -> C:\Users\admin\source\repos\QuanLyNhaThuoc\x64\Debug\QuanLyNhaThuoc.exe
