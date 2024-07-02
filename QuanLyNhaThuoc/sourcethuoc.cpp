@@ -302,13 +302,6 @@ void menuThemThuoc() {
 	cout << "2. Them thuoc tu file" << endl;
 	cout << "--------------------------------------------------" << endl;
 }
-void menuThoat() {
-	system("cls");
-	cout << "--------------------------------------------------" << endl;
-	cout << "1. Luu va thoat" << endl;
-	cout << "2. Thoat" << endl;
-	cout << "--------------------------------------------------" << endl;
-}
 void tachDauPhay(string s, Thuoc &thuoc) {
 	char arr[100]; //Mảng lưu các kí tự trong chuỗi được tách ra sau khi bỏ dấu phẩy 
 	string arr2[4]; //Mảng lưu thông tin thuốc sau khi tách dấu phẩy
